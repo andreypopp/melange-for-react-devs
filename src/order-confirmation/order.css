@@ -1,0 +1,11 @@
+.order {
+  border-top: 1px solid lightgray;
+}
+
+.emoji {
+  font-size: 2em;
+}
+
+.price {
+  text-align: right;
+}
