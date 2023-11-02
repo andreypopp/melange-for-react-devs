@@ -8,12 +8,12 @@ let taxRate = 0.12;
 let make = (~orders: t) => {
   let subtotal =
     orders
-    |> Array.fold_left((acc, order) => acc +. Order.toPrice(order), 0.);
+    |> Js.Array.reduce((acc, order) => acc +. Order.toPrice(order), 0.);
   let total = subtotal *. (1. +. taxRate);
 
   <table className="orders">
     {orders
-     |> Array.mapi((index, order) =>
+     |> Js.Array.mapi((order, index) =>
           <Order key={"order-" ++ string_of_int(index)} order />
         )
      |> React.array}

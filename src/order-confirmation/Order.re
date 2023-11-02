@@ -35,7 +35,7 @@ module Burger = {
     cheese: int,
   };
 
-  let toEmoji = ({lettuce, tomatoes, bacon, onions, cheese}) => {
+  let toEmoji_simple = ({lettuce, tomatoes, bacon, onions, cheese}) => {
     let multiple = (str, n) =>
       switch (n) {
       | 0 => ""
@@ -56,6 +56,34 @@ module Burger = {
       |> Js.Array.filter(str => str != "")
       |> Js.Array.joinWith(", "),
     );
+  };
+
+  let toEmoji = t => {
+    let multiple = (str, n) =>
+      switch (n) {
+      | 0 => ""
+      | 1 => str
+      | n => Printf.sprintf("%s%s%d", str, {js|×|js}, n)
+      };
+
+    let burger = {js|🍔|js};
+    switch (t) {
+    | {lettuce: false, tomatoes: false, bacon: 0, onions: 0, cheese: 0} => burger
+    | {lettuce, tomatoes, bacon, onions, cheese} =>
+      sprintf(
+        "%s{%s}",
+        burger,
+        [|
+          lettuce ? {js|🥬|js} : "",
+          tomatoes ? {js|🍅|js} : "",
+          multiple({js|🥓|js}, bacon),
+          multiple({js|🧅|js}, onions),
+          multiple({js|🧀|js}, cheese),
+        |]
+        |> Js.Array.filter(str => str != "")
+        |> Js.Array.joinWith(", "),
+      )
+    };
   };
 
   let toPrice = ({bacon, onions, cheese, _}) => {

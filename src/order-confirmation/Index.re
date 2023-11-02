@@ -8,11 +8,20 @@ module App = {
   |];
 
   [@react.component]
-  let make = () => <div> <h1> {React.string("Food orders")} </h1> <Orders orders /> </div>;
+  let make = () =>
+    <div>
+      <h1> {React.string("Order confirmation")} </h1>
+      <Orders orders />
+      <h2> {React.string("Remove")} </h2>
+      <Orders_Remove orders />
+      <h2> {React.string("Remove")} </h2>
+      <Orders_List orders={orders |> Array.to_list} />
+    </div>;
 };
 
 let node = ReactDOM.querySelector("#root");
 switch (node) {
-| None => Js.Console.error("Failed to start React: couldn't find the #root element")
+| None =>
+  Js.Console.error("Failed to start React: couldn't find the #root element")
 | Some(root) => ReactDOM.render(<App />, root)
 };

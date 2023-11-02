@@ -9,3 +9,7 @@
 .price {
   text-align: right;
 }
+
+.remove {
+  cursor: pointer;
+}
